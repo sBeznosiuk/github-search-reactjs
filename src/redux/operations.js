@@ -12,7 +12,7 @@ export const fetchUsers = query => dispatch => {
   dispatch(fetchUserRequest())
 
   axios.get(`/users/${query}`)
-    .then(res => dispatch(fetchUserSuccess(res.data)))
+    .then(({data}) => dispatch(fetchUserSuccess(data)))
     .catch(err => dispatch(fetchUserError(err)))
 }
 // export const fetchContacts = () => async dispatch => {

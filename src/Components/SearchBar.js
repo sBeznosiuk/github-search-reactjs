@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { provideQuery } from '../redux/actions';
+import { fetchUserSuccess, provideQuery } from '../redux/actions';
+import { fetchUsers } from '../redux/operations';
 
 const SearchBar = () => {
     const dispatch = useDispatch()
@@ -8,6 +9,9 @@ const SearchBar = () => {
     const handleChange = e => {
         const { value } = e.target
         dispatch(provideQuery(value))
+
+        value && dispatch(fetchUsers(value))
+        !value && dispatch(fetchUserSuccess({}))
     }
     return (
         <>
