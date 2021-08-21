@@ -1,21 +1,25 @@
-import React from 'react';
-import SearchBar from './Components/SearchBar'
-import UsersList from './Components/UsersList'
+import React, {Suspense, lazy} from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import UserDetailsPage from './Components/UserDetailsPage';
-import { useSelector } from 'react-redux';
-import { getUsers } from './redux/contacts-selectors';
+
+const SearchBar = lazy(() =>
+  import('./Components/SearchBar' /* webpackChunkName: 'SearchBar' */),
+);
+
+const UsersList = lazy(() =>
+  import('./Components/UsersList' /* webpackChunkName: 'UsersList' */),
+);
+
+const UserDetailsPage = lazy(() =>
+  import('./Components/UserDetailsPage' /* webpackChunkName: 'UserDetailsPage' */),
+);
+
 
 function App() {
-
-  const user = useSelector(getUsers)
-
   return (
-    <Router>
+    <Suspense fallback={null}>
       <Switch>
         <Route exact path='/' render={props => (
           <>
@@ -23,9 +27,9 @@ function App() {
             <UsersList {...props} />
           </>
         )} />
-        <Route path={`/${user.login}`} component={UserDetailsPage} />
+        <Route path={'/users/:userLogin'} component={UserDetailsPage} />
       </Switch>
-    </Router>
+   </Suspense>
   );
 }
 

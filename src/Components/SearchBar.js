@@ -1,17 +1,20 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchUserSuccess, provideQuery } from '../redux/actions';
+import { fetchUsersSuccess  } from '../redux/actions';
 import { fetchUsers } from '../redux/operations';
+import {  useDebouncedCallback } from 'use-debounce';
 
 const SearchBar = () => {
     const dispatch = useDispatch()
 
+    const debouncedfetch = useDebouncedCallback(text => {
+        text ? dispatch(fetchUsers(text)) : dispatch(fetchUsersSuccess({}))
+    }, 300)
+
     const handleChange = e => {
         const { value } = e.target
-        dispatch(provideQuery(value))
-
-        value && dispatch(fetchUsers(value))
-        !value && dispatch(fetchUserSuccess({}))
+        
+        debouncedfetch(value)
     }
     return (
         <>

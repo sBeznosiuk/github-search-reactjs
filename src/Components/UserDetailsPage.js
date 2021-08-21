@@ -1,10 +1,18 @@
 import moment from 'moment';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { getUsers } from '../redux/contacts-selectors';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../redux/contacts-selectors';
+import { fetchUserDetails } from '../redux/operations';
 
-const UserDetailsPage = () => {
-    const user = useSelector(getUsers)
+const UserDetailsPage = (props) => {
+    const user = useSelector(getUser)
+    const dispatch = useDispatch()
+
+    useEffect( () => {
+        dispatch(fetchUserDetails(props.match.params.userLogin))
+        console.log(props.match.params.userLogin)
+    }, [props, dispatch])
+
     return (
         <div>
             <img src={user.avatar_url} alt="" />

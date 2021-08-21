@@ -15,32 +15,38 @@ import {
   REGISTER,
 } from 'redux-persist';
 import {
-  fetchUserError,
-  fetchUserRequest,
-  fetchUserSuccess,
-  provideQuery,
+  fetchUserDetailsError,
+  fetchUserDetailsRequest,
+  fetchUserDetailsSuccess,
+  fetchUsersError,
+  fetchUsersRequest,
+  fetchUsersSuccess,
 } from './actions';
 
 const itemsReducer = createReducer([], {
-  [fetchUserSuccess]: (_, { payload }) => payload,
+  [fetchUsersSuccess]: (_, { payload }) => payload,
 });
 
-const queryReducer = createReducer('', {
-  [provideQuery]: (_, { payload }) => payload,
-});
+const currentUserReducer = createReducer({}, {
+  [fetchUserDetailsSuccess]: (_, {payload}) => payload
+})
 
 const loading = createReducer(false, {
-  [fetchUserRequest]: () => true,
-  [fetchUserSuccess]: () => false,
-  [fetchUserError]: () => false,
+  [fetchUsersRequest]: () => true,
+  [fetchUsersSuccess]: () => false,
+  [fetchUsersError]: () => false,
+  [fetchUserDetailsRequest]: () => true,
+  [fetchUserDetailsSuccess]: () => false,
+  [fetchUserDetailsError]: () => false,
 });
 
 
 
 const usersReducer = combineReducers({
   items: itemsReducer,
-  query: queryReducer,
+  currentUser: currentUserReducer,
 });
+
 
 const rootReducer = combineReducers({
   users: usersReducer,
