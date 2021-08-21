@@ -7,8 +7,12 @@ import {
   Route
 } from "react-router-dom";
 import UserDetailsPage from './Components/UserDetailsPage';
+import { useSelector } from 'react-redux';
+import { getUsers } from './redux/contacts-selectors';
 
 function App() {
+
+  const user = useSelector(getUsers)
 
   return (
     <Router>
@@ -19,7 +23,7 @@ function App() {
             <UsersList {...props} />
           </>
         )} />
-        <Route component={UserDetailsPage} />
+        <Route path={`/${user.login}`} component={UserDetailsPage} />
       </Switch>
     </Router>
   );

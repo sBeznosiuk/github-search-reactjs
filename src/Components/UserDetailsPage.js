@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getUsers } from '../redux/contacts-selectors';
@@ -21,7 +22,7 @@ const UserDetailsPage = () => {
                 {user.location && `Location: ${user.location}`}
             </p>
             <p>
-                {user.created_at && `Join date: ${user.created_at}`}
+                {user.created_at && `Join date: ${moment(user.created_at).format('YYYY-MM-DD')}`}
             </p>
         </div>
     );
