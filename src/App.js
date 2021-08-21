@@ -6,18 +6,20 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import UserDetailsPage from './Components/UserDetailsPage';
 
 function App() {
 
   return (
     <Router>
       <Switch>
-        <Route path='/' render={props => (
+        <Route exact path='/' render={props => (
           <>
             <SearchBar {...props} />
             <UsersList {...props} />
           </>
         )} />
+        <Route component={UserDetailsPage} />
       </Switch>
     </Router>
   );
