@@ -1,35 +1,44 @@
-import React, {Suspense, lazy} from 'react';
-import {
-  Switch,
-  Route
-} from "react-router-dom";
+import React, { Suspense, lazy } from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 const SearchBar = lazy(() =>
-  import('./Components/SearchBar' /* webpackChunkName: 'SearchBar' */),
+  import(
+    './Components/SearchBar' /* webpackChunkName: 'SearchBar' */
+  )
 );
 
 const UsersList = lazy(() =>
-  import('./Components/UsersList' /* webpackChunkName: 'UsersList' */),
+  import(
+    './Components/UsersList' /* webpackChunkName: 'UsersList' */
+  )
 );
 
 const UserDetailsPage = lazy(() =>
-  import('./Components/UserDetailsPage' /* webpackChunkName: 'UserDetailsPage' */),
+  import(
+    './Components/UserDetailsPage' /* webpackChunkName: 'UserDetailsPage' */
+  )
 );
-
 
 function App() {
   return (
     <Suspense fallback={null}>
       <Switch>
-        <Route exact path='/' render={props => (
-          <>
-            <SearchBar {...props} />
-            <UsersList {...props} />
-          </>
-        )} />
-        <Route path={'/users/:userLogin'} component={UserDetailsPage} />
+        <Route
+          exact
+          path='/'
+          render={props => (
+            <div className='container'>
+              <SearchBar {...props} />
+              <UsersList {...props} />
+            </div>
+          )}
+        />
+        <Route
+          path={'/users/:userLogin'}
+          component={UserDetailsPage}
+        />
       </Switch>
-   </Suspense>
+    </Suspense>
   );
 }
 

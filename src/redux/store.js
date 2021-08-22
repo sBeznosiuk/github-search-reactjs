@@ -18,6 +18,7 @@ import {
   fetchUserDetailsError,
   fetchUserDetailsRequest,
   fetchUserDetailsSuccess,
+  fetchUserReposSuccess,
   fetchUsersError,
   fetchUsersRequest,
   fetchUsersSuccess,
@@ -27,9 +28,16 @@ const itemsReducer = createReducer([], {
   [fetchUsersSuccess]: (_, { payload }) => payload,
 });
 
-const currentUserReducer = createReducer({}, {
-  [fetchUserDetailsSuccess]: (_, {payload}) => payload
-})
+const currentUserReducer = createReducer(
+  {},
+  {
+    [fetchUserDetailsSuccess]: (_, { payload }) => payload,
+  }
+);
+
+const currentUserReposReducer = createReducer([], {
+  [fetchUserReposSuccess]: (_, { payload }) => payload,
+});
 
 const loading = createReducer(false, {
   [fetchUsersRequest]: () => true,
@@ -40,13 +48,11 @@ const loading = createReducer(false, {
   [fetchUserDetailsError]: () => false,
 });
 
-
-
 const usersReducer = combineReducers({
   items: itemsReducer,
   currentUser: currentUserReducer,
+  currentUserRepos: currentUserReposReducer,
 });
-
 
 const rootReducer = combineReducers({
   users: usersReducer,
@@ -56,7 +62,14 @@ const rootReducer = combineReducers({
 const middleware = [
   ...getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      ignoredActions: [
+        FLUSH,
+        REHYDRATE,
+        PAUSE,
+        PERSIST,
+        PURGE,
+        REGISTER,
+      ],
     },
   }),
   logger,
