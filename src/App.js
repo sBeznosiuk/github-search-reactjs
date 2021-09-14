@@ -1,5 +1,9 @@
 import React, { Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
+import { getIsLoading } from './redux/users-selectors';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import Loader from 'react-loader-spinner';
 
 const SearchBar = lazy(() =>
   import(
@@ -20,6 +24,7 @@ const UserDetailsPage = lazy(() =>
 );
 
 function App() {
+  const isLoading = useSelector(getIsLoading);
   return (
     <Suspense fallback={null}>
       <Switch>
@@ -38,6 +43,9 @@ function App() {
           component={UserDetailsPage}
         />
       </Switch>
+      {/* {isLoading && (
+        <Loader type='ThreeDots' color='#00BFFF' />
+      )} */}
     </Suspense>
   );
 }

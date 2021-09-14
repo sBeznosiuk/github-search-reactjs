@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../redux/contacts-selectors';
+import { getUser } from '../redux/users-selectors';
 import { fetchUserDetails } from '../redux/operations';
 import ReposList from './ReposList';
 

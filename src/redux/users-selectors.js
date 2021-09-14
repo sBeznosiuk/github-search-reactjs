@@ -6,3 +6,5 @@ export const getUser = state => state.users.currentUser;
 
 export const getUserRepos = state =>
   state.users.currentUserRepos;
+
+export const getIsLoading = state => state.loading;

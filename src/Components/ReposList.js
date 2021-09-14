@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getUser,
   getUserRepos,
-} from '../redux/contacts-selectors';
+} from '../redux/users-selectors';
 import { fetchUserRepos } from '../redux/operations';
 
 const ReposList = () => {
